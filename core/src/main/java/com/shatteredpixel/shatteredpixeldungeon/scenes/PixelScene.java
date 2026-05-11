@@ -174,6 +174,7 @@ public class PixelScene extends Scene {
 
 	}
 
+
 	@Override
 	public void update() {
 		//we create this here so that it is last in the scene
