@@ -204,17 +204,24 @@ public class PixelScene extends Scene {
 			});
 		}
 
-		//
+		//Shift+p 
 		if (DeviceCompat.isDesktop() && screenshotListener == null) {
-			KeyEvent.addKeyListener(screenshotListener = keyEvent -> {
-				if (!keyEvent.pressed) {
+			KeyEvent.addKeyListener(screenshotListener = new Signal.Listener<KeyEvent>() {
+
+				private boolean shift;
+
+				@Override
+				public boolean onSignal(KeyEvent keyEvent) {
+
+					if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT) {
+						shift = keyEvent.pressed;
+					} else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
+						ScreenshotSaver.captureToDesktopFolder();
+						return true;
+					}
+
 					return false;
 				}
-				if (KeyBindings.getActionForKey(keyEvent) != SPDAction.SCREENSHOT) {
-					return false;
-				}
-				ScreenshotSaver.captureToDesktopFolder();
-				return true;
 			});
 		}
 
