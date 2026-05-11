@@ -93,6 +93,9 @@ public class PixelScene extends Scene {
 
 	private Signal.Listener<KeyEvent> fullscreenListener;
 
+	//screenshotListener
+	private Signal.Listener<KeyEvent> screenshotListener;
+
 	@Override
 	public void create() {
 
