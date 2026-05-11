@@ -55,6 +55,9 @@ import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
+import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
+import com.shatteredpixel.shatteredpixeldungeon.utils.ScreenshotSaver;
+import com.watabou.input.KeyBindings;
 
 import java.util.ArrayList;
 
