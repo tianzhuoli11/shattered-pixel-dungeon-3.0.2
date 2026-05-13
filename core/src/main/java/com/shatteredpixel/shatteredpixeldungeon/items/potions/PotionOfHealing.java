@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.PlayerEventLogger;
 
 public class PotionOfHealing extends Potion {
 
@@ -53,6 +54,9 @@ public class PotionOfHealing extends Potion {
 		identify();
 		cure( hero );
 		heal( hero );
+		int hpBefore = hero.HP;
+		PlayerEventLogger.info("PotionOfHealing", "POTION_DRINK",
+				"hero=" + hero.heroClass + ",hp=" + hpBefore + "->" + hero.HP + ",ht=" + hero.HT);
 	}
 
 	public static void heal( Char ch ){
