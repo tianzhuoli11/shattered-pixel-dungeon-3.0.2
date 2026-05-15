@@ -807,6 +807,7 @@ public class GameScene extends PixelScene {
 			}
 			toDestroy.clear();
 		}
+		PerformanceSampler.onGameFrame();
 	}
 
 	private static Point lastOffset = null;
