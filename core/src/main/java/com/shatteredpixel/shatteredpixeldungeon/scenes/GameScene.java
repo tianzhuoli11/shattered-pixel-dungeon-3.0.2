@@ -121,6 +121,8 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
+// PerformanceSampler
+import com.shatteredpixel.shatteredpixeldungeon.utils.PerformanceSampler;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.ControllerHandler;
 import com.watabou.input.KeyBindings;
@@ -805,6 +807,7 @@ public class GameScene extends PixelScene {
 			}
 			toDestroy.clear();
 		}
+		PerformanceSampler.onGameFrame();
 	}
 
 	private static Point lastOffset = null;
