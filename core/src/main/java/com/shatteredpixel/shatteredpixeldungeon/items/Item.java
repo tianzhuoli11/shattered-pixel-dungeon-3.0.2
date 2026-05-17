@@ -46,15 +46,12 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
-//PlayerEventLogger
-import com.shatteredpixel.shatteredpixeldungeon.utils.PlayerEventLogger;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -159,8 +156,6 @@ public class Item implements Bundlable {
 		GameScene.cancel();
 		curUser = hero;
 		curItem = this;
-		PlayerEventLogger.info("Item", "ITEM_USE",
-				"item=" + getClass().getSimpleName() + ",action=" + action + ",heroPos=" + hero.pos + ",depth=" + Dungeon.depth);
 		
 		if (action.equals( AC_DROP )) {
 			

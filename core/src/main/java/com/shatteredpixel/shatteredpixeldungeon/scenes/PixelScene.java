@@ -55,7 +55,6 @@ import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
-import com.shatteredpixel.shatteredpixeldungeon.utils.ScreenshotSaver;
 
 import java.util.ArrayList;
 
@@ -90,9 +89,6 @@ public class PixelScene extends Scene {
 	protected boolean inGameScene = false;
 
 	private Signal.Listener<KeyEvent> fullscreenListener;
-
-	//screenshotListener
-	private Signal.Listener<KeyEvent> screenshotListener;
 
 	@Override
 	public void create() {
@@ -174,7 +170,6 @@ public class PixelScene extends Scene {
 
 	}
 
-
 	@Override
 	public void update() {
 		//we create this here so that it is last in the scene
@@ -197,27 +192,6 @@ public class PixelScene extends Scene {
 
 					if (alt && enter){
 						SPDSettings.fullscreen(!SPDSettings.fullscreen());
-						return true;
-					}
-
-					return false;
-				}
-			});
-		}
-
-		//Shift+p 
-		if (DeviceCompat.isDesktop() && screenshotListener == null) {
-			KeyEvent.addKeyListener(screenshotListener = new Signal.Listener<KeyEvent>() {
-
-				private boolean shift;
-
-				@Override
-				public boolean onSignal(KeyEvent keyEvent) {
-
-					if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT) {
-						shift = keyEvent.pressed;
-					} else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
-						ScreenshotSaver.captureToDesktopFolder();
 						return true;
 					}
 

@@ -192,11 +192,6 @@ public class SPDAction extends GameAction {
 		//Note that user-entered bindings can override these individually, and that's fine.
 		KeyBindings.addHardBinding( Input.Keys.ALT_RIGHT, SPDAction.NONE );
 		KeyBindings.addHardBinding( Input.Keys.ENTER, SPDAction.NONE );
-
-		//Shitf + P 
-		KeyBindings.addHardBinding( Input.Keys.SHIFT_LEFT, SPDAction.NONE );
-		KeyBindings.addHardBinding( Input.Keys.SHIFT_RIGHT, SPDAction.NONE );
-		KeyBindings.addHardBinding( Input.Keys.P, SPDAction.NONE );
 	}
 
 	//we only save/loads keys which differ from the default configuration.
