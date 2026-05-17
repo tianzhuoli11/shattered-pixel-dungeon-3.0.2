@@ -10,6 +10,7 @@ import com.watabou.utils.DeviceCompat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.nio.ByteBuffer;
 
 public final class ScreenshotSaver {
 
@@ -51,7 +52,29 @@ public final class ScreenshotSaver {
 		int w = src.getWidth();
 		int h = src.getHeight();
 		Pixmap dst = new Pixmap(w, h, src.getFormat());
-		dst.drawPixmap(src, 0, 0, w, h, 0, h, w, -h);
+		
+        
+        if (src.getFormat() == Pixmap.Format.RGBA8888) {
+			int rowBytes = w * 4;
+			ByteBuffer from = src.getPixels();
+			ByteBuffer to = dst.getPixels();
+			byte[] line = new byte[rowBytes];
+			for (int y = 0; y < h; y++) {
+				from.position(y * rowBytes);
+				from.get(line, 0, rowBytes);
+				to.position((h - 1 - y) * rowBytes);
+				to.put(line, 0, rowBytes);
+			}
+			from.rewind();
+			to.rewind();
+		} else {
+			for (int y = 0; y < h; y++) {
+				for (int x = 0; x < w; x++) {
+					dst.drawPixel(x, h - 1 - y, src.getPixel(x, y));
+				}
+			}
+		}
+        
 		src.dispose();
 		return dst;
 	}
