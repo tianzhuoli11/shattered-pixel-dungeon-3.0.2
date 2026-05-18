@@ -46,6 +46,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
+//PlayerEventLogger
+import com.shatteredpixel.shatteredpixeldungeon.utils.PlayerEventLogger;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.KeyEvent;
 import com.watabou.noosa.Camera;
@@ -603,6 +605,8 @@ public class InterlevelScene extends PixelScene {
 
 	private void descend() throws IOException {
 
+		int fromDepth = Dungeon.depth;
+
 		if (Dungeon.hero == null) {
 			Mob.clearHeldAllies();
 			Dungeon.init();
@@ -646,11 +650,14 @@ public class InterlevelScene extends PixelScene {
 			curTransition = null;
 			Dungeon.switchLevel( level, destTransition.cell() );
 		}
-
+		PlayerEventLogger.info("InterlevelScene", "FLOOR_CHANGE",
+				"mode=DESCEND,from=" + fromDepth + ",to=" + Dungeon.depth + ",branch=" + Dungeon.branch);
 	}
 
 	//TODO atm falling always just increments depth by 1, do we eventually want to roll it into the transition system?
 	private void fall() throws IOException {
+
+		int fromDepth = Dungeon.depth;
 		
 		Mob.holdAllies( Dungeon.level );
 		
@@ -665,9 +672,15 @@ public class InterlevelScene extends PixelScene {
 			level = Dungeon.newLevel();
 		}
 		Dungeon.switchLevel( level, level.fallCell( fallIntoPit ));
+
+		PlayerEventLogger.info("InterlevelScene", "FLOOR_CHANGE",
+				"mode=FALL,from=" + fromDepth + ",to=" + Dungeon.depth + ",branch=" + Dungeon.branch);
 	}
 
 	private void ascend() throws IOException {
+
+		int fromDepth = Dungeon.depth;
+
 		Mob.holdAllies( Dungeon.level );
 		Dungeon.saveAll();
 
@@ -684,9 +697,13 @@ public class InterlevelScene extends PixelScene {
 		LevelTransition destTransition = level.getTransition(curTransition.destType);
 		curTransition = null;
 		Dungeon.switchLevel( level, destTransition.cell() );
+		PlayerEventLogger.info("InterlevelScene", "FLOOR_CHANGE",
+				"mode=ASCEND,from=" + fromDepth + ",to=" + Dungeon.depth + ",branch=" + Dungeon.branch);
 	}
 	
 	private void returnTo() throws IOException {
+
+		int fromDepth = Dungeon.depth;
 		Mob.holdAllies( Dungeon.level );
 		Dungeon.saveAll();
 
@@ -700,6 +717,8 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		Dungeon.switchLevel( level, returnPos );
+		PlayerEventLogger.info("InterlevelScene", "FLOOR_CHANGE",
+				"mode=RETURN,from=" + fromDepth + ",to=" + Dungeon.depth + ",branch=" + Dungeon.branch);
 	}
 	
 	private void restore() throws IOException {
