@@ -604,13 +604,14 @@ public class InterlevelScene extends PixelScene {
 	}
 
 	private void descend() throws IOException {
-
+		
 		int fromDepth = Dungeon.depth;
 
 		if (Dungeon.hero == null) {
 			Mob.clearHeldAllies();
 			Dungeon.init();
 			GameLog.wipe();
+			PlayerEventLogger.startNewSession();
 
 			//When debugging, we may start a game at a later depth to quickly test something
 			// if this happens, the games quickly generates all prior levels on branch 0 first,
@@ -726,6 +727,7 @@ public class InterlevelScene extends PixelScene {
 		Mob.clearHeldAllies();
 
 		GameLog.wipe();
+		PlayerEventLogger.startNewSession();
 
 		Dungeon.loadGame( GamesInProgress.curSlot );
 		if (Dungeon.depth == -1) {
