@@ -21,6 +21,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -32,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Tooltip;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.shatteredpixel.shatteredpixeldungeon.utils.ScreenshotSaver;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
@@ -55,8 +59,6 @@ import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
-
-import java.util.ArrayList;
 
 public class PixelScene extends Scene {
 
@@ -178,16 +180,25 @@ public class PixelScene extends Scene {
 
 				private boolean alt;
 				private boolean enter;
+				private boolean shift;
 
 				@Override
 				public boolean onSignal(KeyEvent keyEvent) {
-
+					Gdx.app.log("KEY_TEST", "code=" + keyEvent.code + ", pressed=" + keyEvent.pressed);
 					//we don't use keybindings for these as we want the user to be able to
 					// bind these keys to other actions when pressed individually
 					if (keyEvent.code == Input.Keys.ALT_RIGHT){
 						alt = keyEvent.pressed;
 					} else if (keyEvent.code == Input.Keys.ENTER){
 						enter = keyEvent.pressed;
+					} else if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT){
+						shift = keyEvent.pressed;
+					} else if (keyEvent.code == Input.Keys.H 
+							&& keyEvent.pressed 
+							&& (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) 
+								|| Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT))) {
+						ScreenshotSaver.captureToDesktopFolder();
+						return true;
 					}
 
 					if (alt && enter){
