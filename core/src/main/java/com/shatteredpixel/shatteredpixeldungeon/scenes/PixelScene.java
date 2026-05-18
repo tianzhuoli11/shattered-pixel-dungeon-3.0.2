@@ -216,7 +216,8 @@ public class PixelScene extends Scene {
 
 					if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT) {
 						shift = keyEvent.pressed;
-					} else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
+					// } else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
+					} else if (keyEvent.code == Input.Keys.H && keyEvent.pressed && shift) {
 						ScreenshotSaver.captureToDesktopFolder();
 						return true;
 					}

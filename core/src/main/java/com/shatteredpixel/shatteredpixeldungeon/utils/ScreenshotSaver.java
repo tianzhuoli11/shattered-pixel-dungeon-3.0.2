@@ -19,7 +19,7 @@ public final class ScreenshotSaver {
 	/**
 	 * Captures the current OpenGL framebuffer and writes a PNG next to the user's Desktop folder.
 	 * Desktop only; no-op elsewhere. Triggered from {@link com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene}
-	 * via Shift+P (same idea as Alt+Enter fullscreen: not a user-rebindable keybinding).
+	 * via Shift+H (same idea as Alt+Enter fullscreen: not a user-rebindable keybinding).
 	 */
 	public static void captureToDesktopFolder() {
 		if (!DeviceCompat.isDesktop()) {
@@ -74,7 +74,7 @@ public final class ScreenshotSaver {
 				}
 			}
 		}
-        
+
 		src.dispose();
 		return dst;
 	}
