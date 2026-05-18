@@ -211,6 +211,28 @@ public class PixelScene extends Scene {
 			});
 		}
 
+		//Shift+p 
+		if (DeviceCompat.isDesktop() && screenshotListener == null) {
+			KeyEvent.addKeyListener(screenshotListener = new Signal.Listener<KeyEvent>() {
+
+				private boolean shift;
+
+				@Override
+				public boolean onSignal(KeyEvent keyEvent) {
+
+					if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT) {
+						shift = keyEvent.pressed;
+					// } else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
+					} else if (keyEvent.code == Input.Keys.H && keyEvent.pressed && shift) {
+						ScreenshotSaver.captureToDesktopFolder();
+						return true;
+					}
+
+					return false;
+				}
+			});
+		}
+
 		super.update();
 		//20% deadzone
 		if (!Cursor.isCursorCaptured()) {
