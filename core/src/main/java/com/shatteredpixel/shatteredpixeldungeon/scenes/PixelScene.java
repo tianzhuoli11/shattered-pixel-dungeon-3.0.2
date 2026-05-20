@@ -61,7 +61,7 @@ import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
 
 public class PixelScene extends Scene {
-
+	private Signal.Listener<KeyEvent> screenshotListener;
 	// Minimum virtual display size for mobile portrait orientation
 	public static final float MIN_WIDTH_P = 135;
 	public static final float MIN_HEIGHT_P = 225;
