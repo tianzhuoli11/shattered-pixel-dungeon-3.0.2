@@ -171,6 +171,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 //PlayerEventLogger
+import com.shatteredpixel.shatteredpixeldungeon.utils.HeroBloodTracker;
 import com.shatteredpixel.shatteredpixeldungeon.utils.PlayerEventLogger;
 
 import com.watabou.noosa.Game;
@@ -262,7 +263,9 @@ public class Hero extends Char {
 		}
 		
 		if (boostHP){
+			int hpBefore = HP;
 			HP += Math.max(HT - curHT, 0);
+			HeroBloodTracker.record( this, hpBefore, HP, "LevelUp" );
 		}
 		HP = Math.min(HP, HT);
 	}
@@ -2151,7 +2154,11 @@ public class Hero extends Char {
 	}
 	
 	public static void reallyDie( Object cause ) {
-		
+
+		String causeName = cause == null ? "unknown" : cause.getClass().getSimpleName();
+		PlayerEventLogger.info("Hero", "PLAYER_DEATH",
+				"depth=" + Dungeon.depth + ",branch=" + Dungeon.branch + ",cause=" + causeName);
+
 		int length = Dungeon.level.length();
 		int[] map = Dungeon.level.map;
 		boolean[] visited = Dungeon.level.visited;

@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.utils.HeroBloodTracker;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -51,7 +52,10 @@ public class Healing extends Buff {
 	public boolean act(){
 
 		if (target.HP < target.HT) {
-			target.HP = Math.min(target.HT, target.HP + healingThisTick());
+			int hpBefore = target.HP;
+			int healAmt = healingThisTick();
+			target.HP = Math.min(target.HT, target.HP + healAmt);
+			HeroBloodTracker.record( target, hpBefore, target.HP, Healing.class );
 
 			if (target.HP == target.HT && target instanceof Hero) {
 				((Hero) target).resting = false;
