@@ -34,8 +34,8 @@ import java.util.Locale;
  */
 public final class PerformanceSampler {
 
-	/** Seconds between log lines; large enough to avoid IO affecting measurements much. */
-	private static final float SAMPLE_INTERVAL_SEC = 2f;
+	/** Seconds between log lines; 5s is enough for video demos across load levels without flooding the console. */
+	private static final float SAMPLE_INTERVAL_SEC = 5f;
 
 	private static final int HEAVY_MOBS_TOTAL = 14;
 	private static final int HEAVY_MOBS_FOV = 5;

@@ -2106,6 +2106,8 @@ public class Hero extends Char {
 				GameScene.flash(0x80FFFF40);
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				GLog.w(Messages.get(this, "revive"));
+				PlayerEventLogger.info("Hero", "HERO_REVIVE",
+						"type=blessed_ankh, depth=" + Dungeon.depth + ", branch=" + Dungeon.branch);
 				Statistics.ankhsUsed++;
 				Catalog.countUse(Ankh.class);
 
@@ -2124,6 +2126,8 @@ public class Hero extends Char {
 				//delete the run or submit it to rankings, because a WndResurrect is about to exist
 				//this is needed because the actual creation of the window is delayed here
 				WndResurrect.instance = new Object();
+				PlayerEventLogger.info("Hero", "HERO_DEATH_PENDING",
+						"type=ankh_resurrect, " + deathCauseDetails(cause));
 				Ankh finalAnkh = ankh;
 				Game.runOnRenderThread(new Callback() {
 					@Override
@@ -2151,7 +2155,8 @@ public class Hero extends Char {
 	}
 	
 	public static void reallyDie( Object cause ) {
-		
+		PlayerEventLogger.info("Hero", "HERO_DEATH", deathCauseDetails(cause));
+
 		int length = Dungeon.level.length();
 		int[] map = Dungeon.level.map;
 		boolean[] visited = Dungeon.level.visited;
@@ -2548,6 +2553,21 @@ public class Hero extends Char {
 	public void next() {
 		if (isAlive())
 			super.next();
+	}
+
+	private static String deathCauseDetails( Object cause ) {
+		StringBuilder d = new StringBuilder();
+		d.append("depth=").append(Dungeon.depth);
+		d.append(", branch=").append(Dungeon.branch);
+		if (cause == null) {
+			d.append(", cause=unknown");
+		} else {
+			d.append(", cause=").append(cause.getClass().getSimpleName());
+			if (cause instanceof Char) {
+				d.append(", killer=").append(((Char) cause).name());
+			}
+		}
+		return d.toString();
 	}
 
 	public static interface Doom {

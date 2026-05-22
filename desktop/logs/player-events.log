@@ -98,3 +98,9 @@
 2026-05-22T02:07:02.500802Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=60.0 fps_gdx=60 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
 2026-05-22T02:07:04.501540Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=60.0 fps_gdx=61 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
 2026-05-22T02:07:06.500993Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=60.0 fps_gdx=61 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
+2026-05-22T02:07:08.500521Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=60.0 fps_gdx=60 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
+2026-05-22T02:07:10.493770Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=84.3 fps_gdx=98 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
+2026-05-22T02:07:12.494145Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=112.0 fps_gdx=113 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
+2026-05-22T02:07:14.493788Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=113.5 fps_gdx=115 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
+2026-05-22T02:18:00.528231Z | INFO | Item | ITEM_USE | item=Waterskin,action=DRINK,heroPos=871,depth=2
+2026-05-22T02:18:19.811676Z | INFO | Item | ITEM_USE | item=CloakOfShadows,action=STEALTH,heroPos=335,depth=2
