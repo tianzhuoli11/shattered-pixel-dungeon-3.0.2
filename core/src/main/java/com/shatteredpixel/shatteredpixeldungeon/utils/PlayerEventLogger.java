@@ -32,7 +32,10 @@ import java.time.format.DateTimeFormatter;
 
 public final class PlayerEventLogger {
 
-	private static final String LOG_TAG = "PLAYER_EVENT";
+	private static final String PLAYER_LOG_TAG = "PLAYER_EVENT";
+	private static final String PERF_LOG_TAG = "PERF";
+	private static final String PLAYER_LOG_FILE = "player-events.log";
+	private static final String PERF_LOG_FILE = "perflog";
 
 	private static final DateTimeFormatter SESSION_FILE_TS =
 			DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").withZone(ZoneId.systemDefault());
@@ -96,52 +99,58 @@ public final class PlayerEventLogger {
 			String absRoot = root.file().getAbsolutePath();
 			root.child("LOGS_README.txt").writeString(
 					"Player event logs are written here.\n"
-							+ "Aggregate: player-events.log\n"
+							+ "Player events: " + PLAYER_LOG_FILE + "\n"
+							+ "Performance: " + PERF_LOG_FILE + "\n"
 							+ "Per session: sessions/session_*.txt\n"
 							+ "Folder: " + absRoot + "\n",
 					false, "UTF-8");
 			if (Gdx.app != null) {
-				Gdx.app.log(LOG_TAG, "Logs folder: " + absRoot);
-				Gdx.app.log(LOG_TAG, "Session log file: " + sessionFile.file().getAbsolutePath());
+				Gdx.app.log(PLAYER_LOG_TAG, "Logs folder: " + absRoot);
+				Gdx.app.log(PLAYER_LOG_TAG, "Session log file: " + sessionFile.file().getAbsolutePath());
 			}
 		} catch (Throwable t) {
 			sessionFile = null;
 			if (Gdx.app != null) {
-				Gdx.app.error(LOG_TAG, "startNewSession failed", t);
+				Gdx.app.error(PLAYER_LOG_TAG, "startNewSession failed", t);
 			}
 		}
 	}
 
 	public static synchronized void info(String source, String event, String details) {
-		write("INFO", source, event, details);
+		write(PLAYER_LOG_TAG, PLAYER_LOG_FILE, true, "INFO", source, event, details);
 	}
 
-	private static void write(String level, String source, String event, String details) {
+	/** FPS / load samples: terminal tag [PERF], disk file perflog (not player-events.log). */
+	public static synchronized void perf(String source, String event, String details) {
+		write(PERF_LOG_TAG, PERF_LOG_FILE, false, "INFO", source, event, details);
+	}
+
+	private static void write(String consoleTag, String aggregateFile, boolean includeInSession,
+	                          String level, String source, String event, String details) {
 		String line = Instant.now().toString() + " | " + level + " | " + source + " | " + event + " | " + details;
 		if (Gdx.app != null) {
-			Gdx.app.log(LOG_TAG, line);
+			Gdx.app.log(consoleTag, line);
 		}
 		FileHandle root = logsRoot();
 		if (root == null) {
 			if (Gdx.app != null && !loggedDiskPathOnce) {
 				loggedDiskPathOnce = true;
-				Gdx.app.error(LOG_TAG, "logsRoot() is null (Gdx.files not ready?) — disk log disabled");
+				Gdx.app.error(consoleTag, "logsRoot() is null (Gdx.files not ready?) — disk log disabled");
 			}
 			return;
 		}
 		if (Gdx.app != null && !loggedDiskPathOnce) {
 			loggedDiskPathOnce = true;
-			Gdx.app.log(LOG_TAG, "Disk logs folder: " + root.file().getAbsolutePath());
+			Gdx.app.log(consoleTag, "Disk logs folder: " + root.file().getAbsolutePath());
 		}
 		try {
-			if (sessionFile != null) {
+			if (includeInSession && sessionFile != null) {
 				sessionFile.writeString(line + "\n", true, "UTF-8");
 			}
-			FileHandle aggregate = root.child("player-events.log");
-			aggregate.writeString(line + "\n", true, "UTF-8");
+			root.child(aggregateFile).writeString(line + "\n", true, "UTF-8");
 		} catch (Throwable t) {
 			if (Gdx.app != null) {
-				Gdx.app.error(LOG_TAG, "Failed to write player log line", t);
+				Gdx.app.error(consoleTag, "Failed to write log line", t);
 			}
 		}
 	}
