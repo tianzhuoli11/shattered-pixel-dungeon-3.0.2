@@ -104,3 +104,6 @@
 2026-05-22T02:07:14.493788Z | INFO | PerformanceSampler | PERF_SAMPLE | fps_avg=113.5 fps_gdx=115 depth=2 branch=0 mobs_alive=5 mobs_in_fov=0 load=normal
 2026-05-22T02:18:00.528231Z | INFO | Item | ITEM_USE | item=Waterskin,action=DRINK,heroPos=871,depth=2
 2026-05-22T02:18:19.811676Z | INFO | Item | ITEM_USE | item=CloakOfShadows,action=STEALTH,heroPos=335,depth=2
+2026-05-22T02:26:08.762563Z | INFO | InterlevelScene | FLOOR_CHANGE | mode=DESCEND,from=0,to=1,branch=0
+2026-05-22T02:26:45.496403Z | INFO | Item | ITEM_USE | item=Waterskin,action=DRINK,heroPos=513,depth=1
+2026-05-22T02:26:45.996812Z | INFO | Hero | HERO_DEATH | depth=1, branch=0, cause=DeathGaze
