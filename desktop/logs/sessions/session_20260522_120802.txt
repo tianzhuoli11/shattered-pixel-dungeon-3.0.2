@@ -1,3 +1,0 @@
-2026-05-22T02:08:02.228743Z | INFO | PlayerEventLogger | SESSION_START | file=session_20260522_120802.txt
-2026-05-22T02:18:00.528231Z | INFO | Item | ITEM_USE | item=Waterskin,action=DRINK,heroPos=871,depth=2
-2026-05-22T02:18:19.811676Z | INFO | Item | ITEM_USE | item=CloakOfShadows,action=STEALTH,heroPos=335,depth=2

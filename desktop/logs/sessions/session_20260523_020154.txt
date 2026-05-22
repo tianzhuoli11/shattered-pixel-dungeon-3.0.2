@@ -1,0 +1,4 @@
+2026-05-22T16:01:54.281849Z | INFO | PlayerEventLogger | SESSION_START | file=session_20260523_020154.txt
+2026-05-22T16:01:54.310548Z | INFO | InterlevelScene | FLOOR_CHANGE | mode=DESCEND,from=0,to=1,branch=0
+2026-05-22T16:02:47.228084Z | INFO | Item | ITEM_USE | item=Cudgel,action=THROW,heroPos=335,depth=1
+2026-05-22T16:03:04.779734Z | INFO | Item | ITEM_USE | item=PotionOfStrength,action=DRINK,heroPos=221,depth=1
