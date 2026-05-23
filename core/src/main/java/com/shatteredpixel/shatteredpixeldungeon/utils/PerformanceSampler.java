@@ -1,4 +1,5 @@
-/*
+public final class PerformanceSampler {
+    /*
  * Pixel Dungeon
  * Copyright (C) 2012-2015 Oleg Dolya
  *
@@ -84,6 +85,7 @@ public final class PerformanceSampler {
 		String details = String.format(Locale.US,
 				"fps_avg=%.1f fps_gdx=%d depth=%d branch=%d mobs_alive=%d mobs_in_fov=%d load=%s",
 				fpsAvg, fpsGdx, Dungeon.depth, Dungeon.branch, mobsAlive, mobsInFov, load);
-		FrameRateLogger.sample(details);
+		PlayerEventLogger.info("PerformanceSampler", "PERF_SAMPLE", details);
 	}
 }
+

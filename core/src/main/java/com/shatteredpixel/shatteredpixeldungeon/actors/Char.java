@@ -75,7 +75,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.utils.HeroBloodTracker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -910,7 +909,6 @@ public abstract class Char extends Actor {
 			}
 		}
 		shielded -= dmg;
-		int hpBeforeDamage = HP;
 		HP -= dmg;
 
 		if (HP > 0 && shielded > 0 && shielding() == 0){
@@ -988,8 +986,6 @@ public abstract class Char extends Actor {
 		}
 
 		if (HP < 0) HP = 0;
-
-		HeroBloodTracker.record( this, hpBeforeDamage, HP, src );
 
 		if (!isAlive()) {
 			die( src );
