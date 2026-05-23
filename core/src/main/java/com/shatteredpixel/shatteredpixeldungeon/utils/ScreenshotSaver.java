@@ -31,7 +31,7 @@ public final class ScreenshotSaver {
 		try {
 			pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, w, h);
 			pixmap = flipVertically(pixmap);
-			String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+			String ts = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS", Locale.US).format(new Date());
 			FileHandle dir = Gdx.files.absolute(
 					System.getProperty("user.home") + "/Desktop/ShatteredPD-Screenshots");
 			dir.mkdirs();

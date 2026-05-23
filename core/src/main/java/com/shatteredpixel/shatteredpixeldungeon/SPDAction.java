@@ -193,11 +193,10 @@ public class SPDAction extends GameAction {
 		KeyBindings.addHardBinding( Input.Keys.ALT_RIGHT, SPDAction.NONE );
 		KeyBindings.addHardBinding( Input.Keys.ENTER, SPDAction.NONE );
 
-		//Shitf + P 
+		//hard bindings for desktop screenshot shortcut
+		//not bound to a specific game action, see PixelScene
 		KeyBindings.addHardBinding( Input.Keys.SHIFT_LEFT, SPDAction.NONE );
 		KeyBindings.addHardBinding( Input.Keys.SHIFT_RIGHT, SPDAction.NONE );
-		// KeyBindings.addHardBinding( Input.Keys.P, SPDAction.NONE );
-		//Shift + H
 		KeyBindings.addHardBinding( Input.Keys.H, SPDAction.NONE );
 	}
 

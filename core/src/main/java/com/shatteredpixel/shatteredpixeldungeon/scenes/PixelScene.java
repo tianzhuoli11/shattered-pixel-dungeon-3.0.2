@@ -61,7 +61,6 @@ import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
 
 public class PixelScene extends Scene {
-	private Signal.Listener<KeyEvent> screenshotListener;
 	// Minimum virtual display size for mobile portrait orientation
 	public static final float MIN_WIDTH_P = 135;
 	public static final float MIN_HEIGHT_P = 225;
@@ -180,19 +179,15 @@ public class PixelScene extends Scene {
 
 				private boolean alt;
 				private boolean enter;
-				private boolean shift;
 
 				@Override
 				public boolean onSignal(KeyEvent keyEvent) {
-					Gdx.app.log("KEY_TEST", "code=" + keyEvent.code + ", pressed=" + keyEvent.pressed);
 					//we don't use keybindings for these as we want the user to be able to
 					// bind these keys to other actions when pressed individually
 					if (keyEvent.code == Input.Keys.ALT_RIGHT){
 						alt = keyEvent.pressed;
 					} else if (keyEvent.code == Input.Keys.ENTER){
 						enter = keyEvent.pressed;
-					} else if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT){
-						shift = keyEvent.pressed;
 					} else if (keyEvent.code == Input.Keys.H 
 							&& keyEvent.pressed 
 							&& (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) 
@@ -203,28 +198,6 @@ public class PixelScene extends Scene {
 
 					if (alt && enter){
 						SPDSettings.fullscreen(!SPDSettings.fullscreen());
-						return true;
-					}
-
-					return false;
-				}
-			});
-		}
-
-		//Shift+p 
-		if (DeviceCompat.isDesktop() && screenshotListener == null) {
-			KeyEvent.addKeyListener(screenshotListener = new Signal.Listener<KeyEvent>() {
-
-				private boolean shift;
-
-				@Override
-				public boolean onSignal(KeyEvent keyEvent) {
-
-					if (keyEvent.code == Input.Keys.SHIFT_LEFT || keyEvent.code == Input.Keys.SHIFT_RIGHT) {
-						shift = keyEvent.pressed;
-					// } else if (keyEvent.code == Input.Keys.P && keyEvent.pressed && shift) {
-					} else if (keyEvent.code == Input.Keys.H && keyEvent.pressed && shift) {
-						ScreenshotSaver.captureToDesktopFolder();
 						return true;
 					}
 
